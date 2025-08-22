@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PENZIJA</title>
+  <title>Countdown</title>
   <style>
     body {
-      font-family: 'Lucida Sans';
       display: flex;
-      flex-direction: column;
-      font-size: 3rem;
       justify-content: center;
+      align-items: center;
       height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: #111;
       color: #fff;
+      text-align: center;
       background-image: url("fotka.jpg"); /* Path to your photo */
       background-size: cover; /* Make it cover the whole page */
       background-position: center; /* Center the image */
@@ -21,51 +22,66 @@
       height: 100vh; /* Full viewport height */
       margin: 0;
     }
-    .countdown, #tekst1 {
-      
-      text-align: center;
+
+    .countdown {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    #tekst1 {
-
-        font-size: 4rem;
+    .time-box {
+      flex: 1 1 100px;
+      background: #222;
+      padding: 1rem;
+      border-radius: 12px;
+      min-width: 80px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
     }
 
+    .time-box h2 {
+      font-size: clamp(1.5rem, 5vw, 3rem); /* Responsive scaling */
+      margin: 0;
+    }
 
-
-
+    .time-box p {
+      margin: 0;
+      font-size: clamp(0.8rem, 3vw, 1.2rem);
+      color: #aaa;
+    }
   </style>
 </head>
 <body>
-  <div class="countdown" id="countdown"></div>
-  <div id="tekst1"><pre>D O    P E N Z I J E !!!</pre></div>
+  <div class="countdown">
+    <div class="time-box"><h2 id="days">0</h2><p>Days</p></div>
+    <div class="time-box"><h2 id="hours">0</h2><p>Hours</p></div>
+    <div class="time-box"><h2 id="minutes">0</h2><p>Minutes</p></div>
+    <div class="time-box"><h2 id="seconds">0</h2><p>Seconds</p></div>
+  </div>
 
   <script>
-    // Target date: January 13, 2027 at 15:30
-    const targetDate = new Date("2027-01-13T15:30:00").getTime();
-
     function updateCountdown() {
+      const targetDate = new Date("January 13, 2027 15:30:00").getTime();
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const diff = targetDate - now;
 
-      if (distance <= 0) {
-        document.getElementById("countdown").innerHTML = "SREĆNA TI I DUGOVEČNA BILA PENZIJA,ĐUBRENCE!";
-        clearInterval(timer);
+      if (diff <= 0) {
+        document.querySelector(".countdown").innerHTML = "<h2>Countdown Finished!</h2>";
         return;
       }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      document.getElementById("countdown").innerHTML =
-        days + " dana " + hours + " sati " + minutes + " minuta " + seconds + " sekundi";
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
     }
 
-    // Update countdown every second
-    const timer = setInterval(updateCountdown, 1000);
-    updateCountdown(); // Initial call so it doesn’t wait 1s to show
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
   </script>
 </body>
 </html>
