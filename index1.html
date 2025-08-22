@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PENZIJA</title>
+  <style>
+    body {
+      font-family: 'Lucida Sans';
+      display: flex;
+      flex-direction: column;
+      font-size: 3rem;
+      justify-content: center;
+      height: 100vh;
+      background: #111;
+      color: #fff;
+      background-image: url("fotka.jpg"); /* Path to your photo */
+      background-size: cover; /* Make it cover the whole page */
+      background-position: center; /* Center the image */
+      background-repeat: no-repeat; /* Prevent repeating */
+      height: 100vh; /* Full viewport height */
+      margin: 0;
+    }
+    .countdown, #tekst1 {
+      
+      text-align: center;
+    }
+
+    #tekst1 {
+
+        font-size: 4rem;
+    }
+
+
+
+
+  </style>
+</head>
+<body>
+  <div class="countdown" id="countdown"></div>
+  <div id="tekst1"><pre>D O    P E N Z I J E !!!</pre></div>
+
+  <script>
+    // Target date: January 13, 2027 at 15:30
+    const targetDate = new Date("2027-01-13T15:30:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "SREĆNA TI I DUGOVEČNA BILA PENZIJA,ĐUBRENCE!";
+        clearInterval(timer);
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML =
+        days + " dana " + hours + " sati " + minutes + " minuta " + seconds + " sekundi";
+    }
+
+    // Update countdown every second
+    const timer = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Initial call so it doesn’t wait 1s to show
+  </script>
+</body>
+</html>
